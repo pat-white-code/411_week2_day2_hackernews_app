@@ -1,9 +1,29 @@
+*{
+  box-sizing: border-box;
+}
+.stories {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.story:hover{
+  transform: scaleX(1.05)
+              scaleY(1.05)
+              ;
+}
+
 .story{
   height: 300px;
   width: 200px;
-  border: 1px red solid;
   background-color: aliceblue;
   color: rgb(30, 30, 60);
+  margin: 15px;
+  box-shadow: 4px 4px 8px rgb(20, 20, 20);
+  transition: 200ms;
+  cursor: pointer;
+
 }
 
 p {
@@ -14,6 +34,16 @@ p {
 h1 {
   margin-block-start: 0;
   margin-block-end: 0;
+  font-size: 15px;
+}
+
+.info-container{
+  height: 40%;
+  padding: 10px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 .img-container {
@@ -22,7 +52,7 @@ h1 {
 }
 
 .story-img {
-  height: 200%
+  height: 125%
 }
 
 a {

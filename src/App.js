@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import HackerNews from './HackerNews';
+import './animate.css';
 
 function App() {
   return (

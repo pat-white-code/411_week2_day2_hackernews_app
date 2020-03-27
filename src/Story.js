@@ -3,23 +3,35 @@ import moment from 'moment';
 import './story.css';
 
 class Story extends Component {
-  state = { url: undefined }
+  state = { 
+    url: undefined,
+    randomUrls: [
+
+    ]
+  }
   componentDidMount(){
-    fetch('https://source.unsplash.com/random')
-      .then(res => {
-        console.log(res)
-        this.setState({url: res.url})})
+    // fetch(`https://api.unsplash.com/photos/random/?client_id=I0xGcimco-2dGPdxoNOFryg7kR0POqneNyXiwhbUgKM&count=1&orientation=portrait`)
+    // .then(res => res.json())
+    // .then(json => this.setState({url: json[0].urls.small}))
+    // fetch('https://source.unsplash.com/random/200x180')
+    //   .then(res => {
+    //     console.log(res)
+    //     this.setState({url: res.url})})
   }
   render() { 
-    const {story} = this.props
+    const {story, url} = this.props
     return ( 
-      <div className='story'>
-        <div className='img-container'>
-          <img src={this.state.url} className='story-img' alt=''></img>
+      <a href={story.url} target='_blank' rel='noopener noreferrer'>
+        <div className='story animated fadeIn'>
+          <div className='img-container'>
+            <img src={url} className='story-img' alt=''></img>
+          </div>
+          <div className='info-container'>
+            <h1>{story.title}</h1>
+            <p>By: {story.author} | {moment(story.created_at).fromNow()}</p>
+          </div>
         </div>
-        <h1><a href={story.url} target='_blank' rel='noopener noreferrer'>{story.title}</a></h1>
-        <p>By: {story.author} | {moment(story.created_at).fromNow()}</p>
-      </div>
+      </a>
 
     );
   }

@@ -11,9 +11,9 @@ class HackerNews extends Component {
       authorFilter: '',
       sinceTime: '',
       typingTimerInterval: 500,
-      now: Math.floor(new Date().valueOf() / 1000)
-
-      //time in api is measured in seconds.^^^
+      now: Math.floor(new Date().valueOf() / 1000),
+      //time in api is measured in s, not ms.^^^
+      randomPhotos: []
     }
     this.typingTimer = undefined;
   }
@@ -25,12 +25,23 @@ class HackerNews extends Component {
   }
 
   componentDidMount(){
-    this.fetchData()
+    this.fetchData();
+    this.fetchPhotos();
     // this.setState({now: new Date().valueOf()})
   }
 
   doneTyping = () => {
     this.fetchData();
+    this.fetchPhotos();
+  }
+
+  fetchPhotos = () => {
+    let url = `https://api.unsplash.com/photos/random/?client_id=${process.env.unsplash key}&count=30&orientation=squarish`;
+    if(this.state.query) {url = url + `&query=${this.state.query}`} 
+    fetch(url)
+      .then(res => res.json())
+      .then(json => json.map(photo => photo.urls.small))
+      .then(photos => this.setState({randomPhotos: photos}))
   }
 
   fetchData = () => {
@@ -57,15 +68,18 @@ class HackerNews extends Component {
     return ( 
       <div>
         <h1>Search HackerNews!</h1>
-        <input type='input' value={this.state.query} placeholder='search term' onChange={this.handleChange} name='query'></input>
-        <input type='input' value={this.state.authorFilter} placeholder='Search By Author' onChange={this.handleChange} name='authorFilter'></input>
-        <select type='select' placeholder='Since Time in Seconds' onChange={this.handleChange} name='sinceTime'>
-          <option>Search by Time</option>
-          <option value={this.state.now - 86400}>Today</option>
-          <option value={this.state.now - 604800}>Past Week</option>
-          <option value={this.state.now - 2628000}>This Month</option>
-          <option value={this.state.now - 2628000*12}>This Year</option>
-        </select>
+
+        <form>
+          <input type='input' value={this.state.query} placeholder='search term' onChange={this.handleChange} name='query'></input>
+          <input type='input' value={this.state.authorFilter} placeholder='Search By Author' onChange={this.handleChange} name='authorFilter'></input>
+          <select type='select' placeholder='Since Time in Seconds' onChange={this.handleChange} name='sinceTime'>
+            <option>Search by Time</option>
+            <option value={this.state.now - 86400}>Today</option>
+            <option value={this.state.now - 604800}>Past Week</option>
+            <option value={this.state.now - 2628000}>This Month</option>
+            <option value={this.state.now - 2628000*12}>This Year</option>
+          </select>
+        </form>
         {this.state.isLoading && (
           <div className = 'isloading'></div>
         )}
@@ -74,7 +88,9 @@ class HackerNews extends Component {
           this.state.stories.map((story, index) => (
           <Story
             key={index}
-            story={story} />
+            story={story}
+            url={this.state.randomPhotos[index]}
+            />
           ))
         )}
         </div>
