@@ -10,7 +10,10 @@ class HackerNews extends Component {
       query: '',
       authorFilter: '',
       sinceTime: '',
-      typingTimerInterval: 500
+      typingTimerInterval: 500,
+      now: Math.floor(new Date().valueOf() / 1000)
+
+      //time in api is measured in seconds.^^^
     }
     this.typingTimer = undefined;
   }
@@ -23,6 +26,7 @@ class HackerNews extends Component {
 
   componentDidMount(){
     this.fetchData()
+    // this.setState({now: new Date().valueOf()})
   }
 
   doneTyping = () => {
@@ -40,7 +44,7 @@ class HackerNews extends Component {
     if(this.state.sinceTime){
       url=url + `&numericFilters=created_at_i>${this.state.sinceTime}`
     }
-
+    console.log('FETCHING FROM URL', url)
     fetch(url)
       .then(res => res.json())
       .then(json => this.setState({
@@ -55,10 +59,17 @@ class HackerNews extends Component {
         <h1>Search HackerNews!</h1>
         <input type='input' value={this.state.query} placeholder='search term' onChange={this.handleChange} name='query'></input>
         <input type='input' value={this.state.authorFilter} placeholder='Search By Author' onChange={this.handleChange} name='authorFilter'></input>
-        <input type='input' value={this.state.sinceTime} placeholder='Since Time in Seconds' onChange={this.handleChange} name='sinceTime'></input>
+        <select type='select' placeholder='Since Time in Seconds' onChange={this.handleChange} name='sinceTime'>
+          <option>Search by Time</option>
+          <option value={this.state.now - 86400}>Today</option>
+          <option value={this.state.now - 604800}>Past Week</option>
+          <option value={this.state.now - 2628000}>This Month</option>
+          <option value={this.state.now - 2628000*12}>This Year</option>
+        </select>
         {this.state.isLoading && (
           <div className = 'isloading'></div>
         )}
+        <div className='stories'>
         {!this.state.isLoading && (
           this.state.stories.map((story, index) => (
           <Story
@@ -66,6 +77,7 @@ class HackerNews extends Component {
             story={story} />
           ))
         )}
+        </div>
       </div>
     );
   }
