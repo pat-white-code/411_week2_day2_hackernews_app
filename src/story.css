@@ -14,6 +14,10 @@
               ;
 }
 
+.story:hover .story-img {
+  transform: scale(1.08);
+}
+
 .story{
   height: 300px;
   width: 200px;
@@ -23,6 +27,8 @@
   box-shadow: 4px 4px 8px rgb(20, 20, 20);
   transition: 200ms;
   cursor: pointer;
+  border-radius: 12px;
+
 
 }
 
@@ -48,11 +54,12 @@ h1 {
 
 .img-container {
   height: 60%;
-  overflow: hidden
+  overflow: hidden;
 }
 
 .story-img {
-  height: 125%
+  height: 125%;
+  transition: 200ms;
 }
 
 a {
@@ -78,4 +85,50 @@ a:hover {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.delay-150{
+  animation-delay: 100ms;
+}
+.delay-300{
+  animation-delay: 200ms;
+}
+.delay-450{
+  animation-delay: 300ms;
+}
+.delay-600{
+  animation-delay: 400ms;
+}
+.delay-750{
+  animation-delay: 500ms;
+}
+.delay-900{
+  animation-delay: 900ms;
+}
+.delay-1050{
+  animation-delay: 1050ms;
+}
+.delay-1200{
+  animation-delay: 1200ms;
+}
+.delay-1350{
+  animation-delay: 1350ms;
+}
+.delay-1500{
+  animation-delay: 1500ms;
+}
+.delay-1650{
+  animation-delay: 1650ms;
+}
+.delay-1800{
+  animation-delay: 1800ms;
+}
+.delay-2100{
+  animation-delay: 2100ms;
+}
+.delay-2250{
+  animation-delay: 2250ms;
+}
+.delay-2400{
+  animation-delay: 2400ms;
 }

@@ -19,10 +19,10 @@ class Story extends Component {
     //     this.setState({url: res.url})})
   }
   render() { 
-    const {story, url} = this.props
+    const {story, url, animationDelay} = this.props
     return ( 
       <a href={story.url} target='_blank' rel='noopener noreferrer'>
-        <div className='story animated fadeIn'>
+        <div className={`story animated fadeIn delay-${animationDelay}`}>
           <div className='img-container'>
             <img src={url} className='story-img' alt=''></img>
           </div>

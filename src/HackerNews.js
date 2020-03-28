@@ -36,7 +36,7 @@ class HackerNews extends Component {
   }
 
   fetchPhotos = () => {
-    let url = `https://api.unsplash.com/photos/random/?client_id=${process.env.unsplash key}&count=30&orientation=squarish`;
+    let url = `https://api.unsplash.com/photos/random/?client_id=I0xGcimco-2dGPdxoNOFryg7kR0POqneNyXiwhbUgKM&count=30&orientation=squarish`;
     if(this.state.query) {url = url + `&query=${this.state.query}`} 
     fetch(url)
       .then(res => res.json())
@@ -90,6 +90,7 @@ class HackerNews extends Component {
             key={index}
             story={story}
             url={this.state.randomPhotos[index]}
+            animationDelay = {index*150}
             />
           ))
         )}
